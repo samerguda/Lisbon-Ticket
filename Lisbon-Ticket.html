@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lisbon Ticket</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+
+        #date-time {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .photo-container {
+            margin-bottom: 20px;
+        }
+
+        .photo-container img {
+            width: 300px;
+            height: auto;
+            border: 2px solid #000;
+            display: block;
+            margin: 10px auto;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="date-time"></div>
+
+    <h1>Lisbon Ticket</h1>
+
+    <div id="written-date">Written Date: <span id="written-date-value"></span></div>
+
+    <div class="photo-container">
+        <img src="1.jpg" alt="Photo 1">
+    </div>
+    <div class="photo-container">
+        <img src="2.jpg" alt="Photo 2">
+    </div>
+    <div class="photo-container">
+        <img src="3.jpg" alt="Photo 3">
+    </div>
+    <div class="button-container">
+        <button onclick="window.print()">Print</button>
+        <button onclick="copyContent()">Copy Content</button>
+        <button onclick="sendWhatsApp()">Send via WhatsApp</button>
+        <button onclick="sendEmail()">Send by Email</button>
+    </div>
+
+    <script>
+        // Set current date and time
+        const now = new Date();
+        document.getElementById('date-time').textContent = `Current Date and Time: ${now.toLocaleString()}`;
+
+        // Set written date
+        document.getElementById('written-date-value').textContent = now.toLocaleDateString();
+
+        // Function to copy the content
+        function copyContent() {
+            const content = document.body.innerHTML;
+            navigator.clipboard.writeText(content).then(() => {
+                alert('Content copied to clipboard');
+            }).catch(err => {
+                alert('Failed to copy content');
+            });
+        }
+
+        // Function to send via WhatsApp
+        function sendWhatsApp() {
+            const url = `https://wa.me/?text=${encodeURIComponent(document.title + '\n' + window.location.href)}`;
+            window.open(url, '_blank');
+        }
+
+        // Function to send by email
+        function sendEmail() {
+            const subject = "Lisbon Ticket";
+            const body = "Here is the content of the Lisbon Ticket.";
+            window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+    </script>
+
+</body>
+</html>
